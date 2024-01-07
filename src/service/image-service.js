@@ -13,7 +13,6 @@ axios.defaults.params = {
 export const getImages = async (query, page) => {
   try {
     const resp = await axios.get(`?q=${query}&page=${page}`);
-    // console.log('resp :>> ', resp);
     return resp.data;
   } catch (err) {
     new Error(`You have error: ${err.message}`);

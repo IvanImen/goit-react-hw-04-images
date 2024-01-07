@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { useState } from 'react';
 
 import {
   BtnStyled,
@@ -8,44 +8,41 @@ import {
   IconStyled,
   InputStyled,
 } from './Searchbar.styled';
-// import { FormBtn, InputSearch, SearchbarStyled } from './Searchbar.styled';
 
-export class Searchbar extends Component {
-  state = {
-    search: '',
+import React from 'react';
+
+export const Searchbar = ({ onSubmit }) => {
+  const [search, setSearch] = useState('');
+
+  const handleChange = e => {
+    setSearch(e.target.value);
   };
 
-  handleChange = e => {
-    this.setState({ search: e.target.value });
-  };
-
-  handleSubmit = e => {
+  const handleSubmit = e => {
     e.preventDefault();
-    this.props.onSubmit(this.state.search);
-    this.setState({ search: '' });
+    onSubmit(search);
+    setSearch('');
   };
 
-  render() {
-    return (
-      <HeaderStyled>
-        <ContainerStyled>
-          <FormStyled onSubmit={this.handleSubmit}>
-            <BtnStyled type="submit">
-              <IconStyled size="24px" />
-            </BtnStyled>
-            <InputStyled
-              type="text"
-              name="search"
-              onChange={this.handleChange}
-              value={this.state.search}
-              required
-              autoComplete="off"
-              autoFocus
-              placeholder="Search images and photos"
-            />
-          </FormStyled>
-        </ContainerStyled>
-      </HeaderStyled>
-    );
-  }
-}
+  return (
+    <HeaderStyled>
+      <ContainerStyled>
+        <FormStyled onSubmit={handleSubmit}>
+          <BtnStyled type="submit">
+            <IconStyled size="24px" />
+          </BtnStyled>
+          <InputStyled
+            type="text"
+            name="search"
+            onChange={handleChange}
+            value={search}
+            required
+            autoComplete="off"
+            autoFocus
+            placeholder="Search images and photos"
+          />
+        </FormStyled>
+      </ContainerStyled>
+    </HeaderStyled>
+  );
+};
